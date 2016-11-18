@@ -5,9 +5,20 @@
  *
  */
 
-var uuid = require('node-uuid');
 var fs = require('fs');
 var server = require('webserver').create();
+
+String.prototype.guid = function() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
+
+
 
 String.prototype.replaceAll = function (f, r)
 {
@@ -45,7 +56,7 @@ server.listen(4000, function (request, response)
 		footer: {height: '0.9cm', content: '<div style="text-align:center;"><small>%%pageNumber/%%totalPages</small></div>'}
 	};
 
-	var fileName = uuid.v4() + '.pdf';
+	var fileName = guid() + '.pdf';
 	var filePath = fs.absolute('./temp_files/' + fileName);
 
 	switch (request.method)
