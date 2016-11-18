@@ -1,1 +1,1 @@
-  phantomjs webserver.js
+ script: phantomjs webserver.js
